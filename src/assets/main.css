@@ -121,13 +121,14 @@ main {
   background: rgba(85, 85, 85, 0.477);
 }
 
-
 .fade-item-list {
   height: 50px;
   position: absolute;
   display: inline-block;
   z-index: 9999;
   width: 100%;
+  user-select: none;
+  pointer-events: none;
 }
 
 .fade-item-list.top {
@@ -164,6 +165,9 @@ main {
   gap: 2em;
   margin-top: 2em;
   width: 100%;
+  box-shadow: 0 0.5em 0.5em rgba(0, 0, 0, 0.3);
+  border-radius: 7px;
+  padding: 0.25em 0.5em;
 }
 
 .item-row:first-of-type {
@@ -171,7 +175,7 @@ main {
 }
 
 .item-desc {
-  background-color: #8000ff;
+  background-color: #4b0095;
   color: #fff;
   width: fit-content;
   min-width: 8em;
@@ -180,25 +184,51 @@ main {
   letter-spacing: 0.75px;
 }
 
+.item-desc.food {
+  background-color: #8000ff;
+}
+
 .item-desc-price,
 .item-acc {
   letter-spacing: 1.5px;
 }
 
+footer {
+  width: 25em;
+  max-width: 65%;
+}
+
 .total-result {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 3em;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+  gap: 0.5em;
   text-transform: uppercase;
   font-weight: 600;
   width: fit-content;
-  max-width: 90%;
-  margin-inline: auto;
+  margin-left: auto;
   border-radius: 7px;
-  padding: 0.45em 0.75em;
-  background-color: #ff0000;
-  color: #fff;
+  padding: 1em 1em 1em 1.5em;
+  background-color: #b0abab36;
+  box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2);
   margin-top: 2em;
+}
+
+.total-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2.5em;
+  width: 100%;
+}
+
+.total-result h2 {
+  color: rgb(12, 12, 12);
+}
+
+.total-dmg {
+  color: red;
 }

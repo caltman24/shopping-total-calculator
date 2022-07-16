@@ -20,7 +20,13 @@
           step="0.01"
           placeholder="0.00"
           v-model.number="price"
+          required
         />
+        <span>
+          <input type="checkbox" name="" id="is-food" v-model="isFood" />
+          <label for="is-food">Food</label>
+        </span>
+
         <button @click.prevent="saveItem" type="submit" class="btn">
           Save Item
         </button>
@@ -50,6 +56,7 @@ export default {
     return {
       name: "",
       price: null,
+      isFood: true,
     };
   },
   emits: ["toggle-menu", "new-item", "clear-items"],
@@ -58,13 +65,16 @@ export default {
       this.$emit("toggle-menu");
     },
     saveItem() {
+      if (!this.price) return;
       const newItem = {
         name: this.name,
         price: this.price,
+        isFood: this.isFood,
       };
       this.$emit("new-item", newItem);
       this.name = "";
       this.price = null;
+      this.isFood = true;
     },
     clearItems() {
       this.$emit("clear-items");
@@ -98,6 +108,17 @@ input {
   border-radius: 4px;
   margin-block: 0.5em;
   font-size: 20px;
+}
+
+span {
+  display: flex;
+  align-items: center;
+}
+
+#is-food {
+  width: 20px;
+  height: 20px;
+  margin-right: 1em;
 }
 
 label {

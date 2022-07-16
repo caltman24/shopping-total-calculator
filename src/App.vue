@@ -7,18 +7,23 @@
     :menuOpen="menuOpen"
     :items="items"
   />
-  <ItemList :items="items" />
-  <footer>
-    <div class="total-result">
-      Total Damage:
-      <h2>${{ totalPrice }}</h2>
-    </div>
-  </footer>
+  <ItemList :items="items" v-show="!menuOpen" @remove-item="deleteItem" />
+  <Transition name="fade">
+    <TotalPrice
+      :totalPrice="totalPrice"
+      :totalTax="totalTax"
+      :subtotal="subtotal"
+      v-show="items.length > 0"
+    />
+  </Transition>
 </template>
 
 <script>
 import HeaderToggle from "./components/HeaderToggle.vue";
 import ItemList from "./components/ItemList.vue";
+import TotalPrice from "./components/TotalPrice.vue";
+import { v4 as uuidv4 } from "uuid";
+
 export default {
   name: "App",
   data() {
@@ -34,7 +39,18 @@ export default {
       this.menuOpen = !this.menuOpen;
     },
     addItem(newItem) {
-      this.items = [...this.items, newItem];
+      const itemWithId = {
+        id: uuidv4(),
+        ...newItem,
+      };
+      this.items = [...this.items, itemWithId];
+      localStorage.setItem("items", JSON.stringify(this.items));
+      setTimeout(() => {
+        this.setScroll();
+      }, 100);
+    },
+    deleteItem(id) {
+      this.items = this.items.filter((item) => item.id !== id);
       localStorage.setItem("items", JSON.stringify(this.items));
       setTimeout(() => {
         this.setScroll();
@@ -54,21 +70,32 @@ export default {
     },
   },
   mounted() {
-    this.setScroll();
     if (localStorage.items) {
       this.items = JSON.parse(localStorage.items);
     } else {
       localStorage.items = JSON.stringify(this?.items);
     }
+    setTimeout(() => {
+      this.setScroll();
+    }, 1);
   },
   computed: {
+    subtotal() {
+      return this.items.reduce((acc, item) => {
+        return acc + item.price;
+      }, 0);
+    },
+    totalTax() {
+      const nonFoods = this.items.filter((item) => !item.isFood);
+      const nonFoodTotal = nonFoods.reduce((acc, curr) => acc + curr.price, 0);
+
+      const tax = nonFoodTotal * this.taxAmount;
+      return tax;
+    },
     totalPrice() {
-      const subTotal = this.items.reduce((acc, curr) => acc + curr.price, 0);
-      const tax = subTotal * this.taxAmount;
-      const total = subTotal + tax;
-      return total.toFixed(2);
+      return (this.subtotal + this.totalTax).toFixed(2);
     },
   },
-  components: { HeaderToggle, ItemList },
+  components: { HeaderToggle, ItemList, TotalPrice },
 };
 </script>
