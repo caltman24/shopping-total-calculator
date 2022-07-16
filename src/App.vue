@@ -26,10 +26,10 @@ export default {
       items: [
         { name: "Bacon", price: 2.0, id: 1 },
         { name: "Milk", price: 1.99, id: 2 },
-        { name: "Milk", price: 1.99, id: 3 },
-        { name: "Milk", price: 1.99, id: 3 },
-        { name: "Milk", price: 1.99, id: 3 },
-        { name: "Milk", price: 1.99, id: 3 },
+        { name: "Sauce", price: 3.29, id: 3 },
+        { name: "Beef", price: 6.29, id: 4 },
+        { name: "Cheese", price: 3.89, id: 5 },
+        { name: "Detergent", price: 9.23, id: 6 },
       ],
     };
   },

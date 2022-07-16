@@ -1,7 +1,12 @@
 <template>
   <header>
-    <button @click.prevent="toggleMenu" type="button" class="btn large">
-      Add Item
+    <button
+      @click.prevent="toggleMenu"
+      type="button"
+      class="btn large"
+      :class="menuOpen ? 'close' : ''"
+    >
+      {{ menuOpen ? "Close" : "Add Item" }}
     </button>
     <transition name="fade">
       <form class="add-item" v-show="menuOpen">
@@ -16,7 +21,7 @@
           placeholder="0.00"
           v-model.number="price"
         />
-        <button @click.prevent="saveItem" type="submit" class="btn black">
+        <button @click.prevent="saveItem" type="submit" class="btn">
           Save Item
         </button>
       </form>
