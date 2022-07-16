@@ -12,7 +12,7 @@
           >
             <div class="item-desc" :class="item.isFood ? 'food' : ''">
               <p class="item-desc-name">{{ item.name || "" }}</p>
-              <h3 class="item-desc-price">${{ item.price.toFixed(2) }}</h3>
+              <h3 class="item-desc-price">+ ${{ item.price.toFixed(2) }}</h3>
             </div>
             <h2 class="item-acc">${{ accumPrice[i].toFixed(2) }}</h2>
           </div>
