@@ -3,7 +3,9 @@
   <HeaderToggle
     @toggle-menu="toggleMenu"
     @new-item="addItem"
+    @clear-items="clearItems"
     :menuOpen="menuOpen"
+    :items="items"
   />
   <ItemList :items="items" />
   <footer>
@@ -23,14 +25,8 @@ export default {
     return {
       menuOpen: false,
       totalAmmount: 0,
-      items: [
-        { name: "Bacon", price: 2.0, id: 1 },
-        { name: "Milk", price: 1.99, id: 2 },
-        { name: "Sauce", price: 3.29, id: 3 },
-        { name: "Beef", price: 6.29, id: 4 },
-        { name: "Cheese", price: 3.89, id: 5 },
-        { name: "Detergent", price: 9.23, id: 6 },
-      ],
+      items: [],
+      taxAmount: 0.07,
     };
   },
   methods: {
@@ -39,11 +35,38 @@ export default {
     },
     addItem(newItem) {
       this.items = [...this.items, newItem];
+      localStorage.setItem("items", JSON.stringify(this.items));
+      setTimeout(() => {
+        this.setScroll();
+      }, 100);
     },
+    clearItems() {
+      this.items = [];
+      localStorage.setItem("items", JSON.stringify(this.items));
+      setTimeout(() => {
+        this.setScroll();
+      }, 100);
+    },
+    setScroll() {
+      const lastItem = document.querySelector(".item-row:last-child");
+      const listContainer = document.querySelector(".item-list-container");
+      listContainer.scrollTo(0, lastItem?.offsetTop);
+    },
+  },
+  mounted() {
+    this.setScroll();
+    if (localStorage.items) {
+      this.items = JSON.parse(localStorage.items);
+    } else {
+      localStorage.items = JSON.stringify(this?.items);
+    }
   },
   computed: {
     totalPrice() {
-      return this.items.reduce((acc, curr) => acc + curr.price, 0).toFixed(2);
+      const subTotal = this.items.reduce((acc, curr) => acc + curr.price, 0);
+      const tax = subTotal * this.taxAmount;
+      const total = subTotal + tax;
+      return total.toFixed(2);
     },
   },
   components: { HeaderToggle, ItemList },

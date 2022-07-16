@@ -26,6 +26,16 @@
         </button>
       </form>
     </transition>
+    <transition name="fade">
+      <button
+        v-show="items.length > 0 && !menuOpen"
+        @click.prevent="clearItems"
+        type="button"
+        class="btn clear large"
+      >
+        clear
+      </button>
+    </transition>
   </header>
 </template>
 
@@ -34,6 +44,7 @@ export default {
   name: "HeaderToggle",
   props: {
     menuOpen: Boolean,
+    items: Array,
   },
   data() {
     return {
@@ -41,7 +52,7 @@ export default {
       price: null,
     };
   },
-  emits: ["toggle-menu", "new-item"],
+  emits: ["toggle-menu", "new-item", "clear-items"],
   methods: {
     toggleMenu() {
       this.$emit("toggle-menu");
@@ -52,6 +63,11 @@ export default {
         price: this.price,
       };
       this.$emit("new-item", newItem);
+      this.name = "";
+      this.price = null;
+    },
+    clearItems() {
+      this.$emit("clear-items");
     },
   },
 };
