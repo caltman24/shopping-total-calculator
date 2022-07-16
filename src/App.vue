@@ -7,7 +7,7 @@
     :menuOpen="menuOpen"
     :items="items"
   />
-  <ItemList :items="items" v-show="!menuOpen" @remove-item="deleteItem" />
+  <ItemList :items="items" @remove-item="deleteItem" />
   <Transition name="fade">
     <TotalPrice
       :totalPrice="totalPrice"
