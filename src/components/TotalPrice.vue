@@ -4,16 +4,16 @@
       <div class="total-row">
         <div class="total-sub">
           subtotal:
-          <h2>${{ subtotal.toFixed(2) }}</h2>
+          <h3>${{ subtotal.toFixed(2) }}</h3>
         </div>
         <div class="total-tax">
           tax:
-          <h2>${{ totalTax.toFixed(2) }}</h2>
+          <h3>${{ totalTax.toFixed(2) }}</h3>
         </div>
       </div>
       <div class="total-dmg">
         Total Damage:
-        <h2>${{ totalPrice }}</h2>
+        <h3>${{ totalPrice }}</h3>
       </div>
     </div>
   </footer>

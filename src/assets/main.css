@@ -12,6 +12,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding-bottom: 1em;
 }
 
 #title {
@@ -93,7 +94,7 @@ main {
 .item-list-container {
   overflow-y: auto;
   overflow-x: hidden;
-  max-height: 60vmax;
+  max-height: 55vmax;
   min-width: fit-content;
   width: 25em;
   margin-inline: auto;
@@ -164,7 +165,7 @@ main {
   align-items: center;
   justify-content: space-between;
   gap: 2em;
-  margin-top: 2em;
+  margin-top: 0.5em;
   width: 100%;
   box-shadow: 0 0.5em 0.5em rgba(0, 0, 0, 0.3);
   border-radius: 7px;
@@ -214,7 +215,7 @@ footer {
   padding: 0.65em 0.65em 0.65em 1.45em;
   background-color: #b0abab36;
   box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2);
-  margin-top: 2em;
+  margin-top: 1.5vh;
 }
 
 .total-row {
@@ -224,10 +225,12 @@ footer {
   justify-content: space-between;
   gap: 2.5em;
   width: 100%;
+  font-size: 1rem;
 }
 
-.total-result h2 {
+.total-result h3 {
   color: rgb(12, 12, 12);
+  font-size: 1.3rem;
 }
 
 .total-dmg {
