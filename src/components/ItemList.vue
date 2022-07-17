@@ -4,18 +4,13 @@
     <div class="item-list-container">
       <div class="item-list">
         <transition-group name="list">
-          <div
-            class="item-row"
+          <ItemRow
             v-for="(item, i) in items"
             :key="item.id"
             @dblclick="removeItem(item)"
-          >
-            <div class="item-desc" :class="item.isFood ? 'food' : ''">
-              <p class="item-desc-name">{{ item.name || "" }}</p>
-              <h3 class="item-desc-price">+ ${{ item.price.toFixed(2) }}</h3>
-            </div>
-            <h2 class="item-acc">${{ accumPrice[i].toFixed(2) }}</h2>
-          </div>
+            :item="item"
+            :accumPrice="accumPrice[i]"
+          />
         </transition-group>
       </div>
     </div>
@@ -24,10 +19,14 @@
 </template>
 
 <script>
+import ItemRow from "./ItemRow.vue";
 export default {
   name: "ItemList",
   props: {
     items: Array,
+  },
+  components: {
+    ItemRow,
   },
   emits: ["remove-item"],
   methods: {

@@ -107,7 +107,7 @@ input {
   border: 1px solid #ccc;
   border-radius: 4px;
   margin-block: 0.5em;
-  font-size: 20px;
+  font-size: 1rem;
 }
 
 span {
@@ -122,6 +122,6 @@ span {
 }
 
 label {
-  font-size: 20px;
+  font-size: 1.1rem;
 }
 </style>
