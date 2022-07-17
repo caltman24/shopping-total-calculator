@@ -46,6 +46,8 @@
 </template>
 
 <script>
+import { v4 as uuidv4 } from "uuid";
+
 export default {
   name: "HeaderToggle",
   props: {
@@ -67,6 +69,7 @@ export default {
     saveItem() {
       if (!this.price) return;
       const newItem = {
+        id: uuidv4(),
         name: this.name,
         price: this.price,
         isFood: this.isFood,
@@ -105,7 +108,7 @@ input {
   padding: 0.5em;
   border: 1px solid #ccc;
   border-radius: 4px;
-  margin-block: 0.5em;
+  margin-block: 0.25em;
   font-size: 1rem;
 }
 

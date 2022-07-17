@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import ItemRow from "./ItemRow.vue";
+import ItemRow from "@/components/Item-List/ItemRow.vue";
 export default {
   name: "ItemList",
   props: {
