@@ -1,5 +1,16 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 
+:root {
+  --fs-sm: clamp(0.6rem, 0.6rem + 1.4vw, 1.2rem);
+  --fs-md: clamp(1.2rem, 1rem + 1.5vw, 2rem);
+  --fs-lg: clamp(1.5rem, 1rem + 2vw, 3rem);
+  --clr-red: hsl(0, 65%, 49%);
+  --clr-red-hover: hsl(0, 65%, 40%);
+  --clr-nonfood: #4b0095;
+  --clr-food: #8000ff;
+  --clr-blue: #0066ff;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -8,10 +19,6 @@
 
 #app {
   font-family: "Poppins", sans-serif;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-bottom: 1em;
 }
 
 #title {
@@ -19,21 +26,22 @@
   font-size: 1.4rem;
 }
 
-main {
-  position: relative;
-  width: 100%;
+#home {
+  max-width: 40em;
+  margin: 0 auto;
+  padding-bottom: 4em;
 }
 
 .btn {
   border: none;
   border-radius: 7px;
-  width: 280px;
+  width: 100%;
   margin-block: 1em 0.5em;
   padding: 0.5em 0.75em;
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-family: "Poppins", sans-serif;
   font-weight: 600;
-  background-color: #0066ff;
+  background-color: var(--clr-blue);
   color: #fff;
   letter-spacing: 1.5px;
   transition: all 0.2s ease;
@@ -59,21 +67,20 @@ main {
 }
 
 .btn.large.clear {
-  background-color: #ff6c6c;
+  background-color: var(--clr-red);
   color: #fff;
   margin: unset;
   margin-bottom: 1em;
-  max-width: 70%;
 }
 
 .btn.clear:hover {
-  background-color: #ff5a5a;
+  background-color: var(--clr-red-hover);
   transition: all 0.2s ease;
 }
 
-.btn.large {
-  width: 320px;
-  max-width: 95%;
+.btn.large.clear:active {
+  background-color: var(--clr-red);
+  opacity: 0.9;
 }
 
 .fade-enter-active {
@@ -90,22 +97,25 @@ main {
   opacity: 0;
 }
 
+main {
+  position: relative;
+  width: 100%;
+  margin-bottom: 0.5em;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1em;
+}
+
 .item-list-container {
   overflow-y: auto;
   overflow-x: hidden;
-  max-height: 55vmax;
-  min-width: fit-content;
-  width: 25em;
-  margin-inline: auto;
-  max-width: 85%;
+  max-height: 58vh;
   position: relative;
-}
-
-@media screen and (min-width: 1024px) {
-  .item-list-container {
-    max-height: 60vh;
-    width: 25em;
-  }
 }
 
 .item-list-container::-webkit-scrollbar {
@@ -176,17 +186,17 @@ main {
 }
 
 .item-desc {
-  background-color: #4b0095;
+  background-color: var(--clr-nonfood);
   color: #fff;
   width: fit-content;
-  min-width: 8em;
+  min-width: 40%;
   border-radius: 7px;
   padding: 0.25em 0.75em;
   letter-spacing: 0.75px;
 }
 
 .item-desc.food {
-  background-color: #8000ff;
+  background-color: var(--clr-food);
 }
 
 .item-desc-price,
@@ -200,16 +210,11 @@ footer {
   width: 100vw;
   position: fixed;
   bottom: 0;
+  left: 0;
   background-color: #0066ff;
   color: hsla(0, 0%, 100%, 0.85);
   box-shadow: 0 -0.4em 0.5em rgba(0, 0, 0, 0.2);
   z-index: 9999;
-}
-
-@media screen and (min-width: 768px) {
-  footer {
-    width: 45em;
-  }
 }
 
 .total-result {
@@ -217,40 +222,33 @@ footer {
   font-weight: 600;
   width: 100%;
   border-radius: 7px;
-}
-
-.total-row {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  gap: 2.5em;
-  font-size: 1rem;
   width: 100%;
-}
-
-.total-row div {
-  padding: 0.5em 1em;
+  font-size: var(--fs-sm);
 }
 
 .total-result h3 {
   color: rgb(12, 12, 12);
   color: white;
-  font-size: 1.3rem;
 }
 
-.total-result p {
-  font-size: 0.8rem;
+.total-result div {
+  padding: 0.5em 0.75em;
 }
 
 .total-dmg {
-  font-size: 1.1rem;
-  background: red;
+  background: var(--clr-red);
+  color: #fff;
 }
 
-.total-dmg p {
-  font-size: 1rem;
-  color: white;
+@media screen and (min-width: 848px) {
+  .total-row {
+    justify-content: center;
+    gap: 15em;
+  }
 }
 
 #state-select {

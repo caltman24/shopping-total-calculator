@@ -1,8 +1,5 @@
 <template>
-  <p>
-    Sales Tax: <strong>{{ state }}</strong> -
-    <strong class="blue">{{ taxPercentage }}%</strong>
-  </p>
+  STATE:
   <select
     name="state-select"
     id="state-select"
@@ -21,7 +18,6 @@ export default {
   props: {
     states: Array,
     selectedState: String,
-    taxPercentage: String,
   },
   data() {
     return {
@@ -37,5 +33,3 @@ export default {
   },
 };
 </script>
-
-<style scoped></style>

@@ -1,9 +1,8 @@
 <template>
-  <h1 id="title">Shopping total calculator</h1>
   <router-view v-slot="{ Component }">
-    <transition name="slide" mode="out-in">
-      <keep-alive :exclude="AboutPage">
-        <component :is="Component" :key="$route.path"/>
+    <transition name="slide" mode="out-in" appear>
+      <keep-alive>
+        <component :is="Component" :key="$route.path" />
       </keep-alive>
     </transition>
   </router-view>

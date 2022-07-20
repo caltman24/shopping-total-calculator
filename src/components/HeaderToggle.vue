@@ -9,27 +9,36 @@
       {{ menuOpen ? "Close X" : "Add Item +" }}
     </button>
     <transition name="fade">
-      <form class="add-item" v-show="menuOpen">
-        <label for="item-name">Name: </label>
-        <input id="item-name" type="text" placeholder="Bread" v-model="name" />
-        <label for="item-price">Price: </label>
-        <input
-          id="item-price"
-          type="number"
-          min="0.01"
-          step="0.01"
-          placeholder="0.00"
-          v-model.number="price"
-          required
-        />
+      <form @submit.prevent="saveItem" class="add-item" v-show="menuOpen">
+        <div class="item-name--wrapper">
+          <label for="item-name">Name: </label>
+          <input
+            id="item-name"
+            type="text"
+            placeholder="Bread"
+            v-model="name"
+          />
+        </div>
+        <div class="item-price--wrapper">
+          <label for="item-price">Price: </label>
+          <input
+            id="item-price"
+            type="number"
+            min="0.01"
+            step="0.01"
+            placeholder="0.00"
+            v-model.number="price"
+            required
+            oninvalid="setCustomValidity('Please enter a price.')"
+          />
+        </div>
+
         <span>
           <input type="checkbox" name="" id="is-food" v-model="isFood" />
           <label for="is-food">Food</label>
         </span>
 
-        <button @click.prevent="saveItem" type="submit" class="btn">
-          Save Item
-        </button>
+        <button type="submit" class="btn">Save Item</button>
       </form>
     </transition>
     <transition name="fade">
@@ -90,31 +99,39 @@ export default {
 header {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  width: 100%;
 }
 
 form {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  width: 100%;
-  max-width: 500px;
-  margin: 0 auto;
 }
 
 input {
-  width: 280px;
   padding: 0.5em;
   border: 1px solid #ccc;
   border-radius: 4px;
   margin-block: 0.25em;
   font-size: 1rem;
+  width: 100%;
+}
+
+div.unit input {
+  width: fit-content;
+  margin-right: 1.5em;
 }
 
 span {
   display: flex;
   align-items: center;
+}
+
+select {
+  padding: 0.25em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
 }
 
 #is-food {

@@ -1,7 +1,6 @@
 <template>
   <footer>
     <div class="total-result">
-      <div class="total-row">
         <div class="total-sub">
           <p>subtotal:</p>
           <h3>${{ subtotal.toFixed(2) }}</h3>
@@ -15,7 +14,6 @@
           <h3>${{ totalPrice }}</h3>
         </div>
       </div>
-    </div>
   </footer>
 </template>
 
@@ -29,5 +27,3 @@ export default {
   },
 };
 </script>
-
-<style></style>

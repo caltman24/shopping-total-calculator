@@ -2,9 +2,9 @@
   <div class="item-row">
     <div class="item-desc" :class="item.isFood ? 'food' : ''">
       <p class="item-desc-name">{{ item.name || "" }}</p>
-      <h3 class="item-desc-price">+ ${{ item.price.toFixed(2) }}</h3>
+      <h4 class="item-desc-price">+ ${{ item.price.toFixed(2) }}</h4>
     </div>
-    <h3 class="item-acc">${{ accumPrice.toFixed(2) }}</h3>
+    <h4 class="item-acc">${{ accumPrice.toFixed(2) }}</h4>
   </div>
 </template>
 

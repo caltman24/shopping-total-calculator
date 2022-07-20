@@ -1,20 +1,24 @@
 <template>
   <div id="home">
-    <StateSelect
-      :states="states"
-      @state-select="selectState"
-      :selectedState="selectedState"
-      :taxPercentage="taxPercentage"
-    />
-    <HeaderToggle
-      @toggle-menu="toggleMenu"
-      @new-item="addItem"
-      @clear-items="clearItems"
-      :menuOpen="menuOpen"
-      :items="items"
-    />
-    <ItemList :items="items" @remove-item="deleteItem" />
-    <router-link to="/about">ABOUT</router-link>
+    <div class="content">
+      <div class="state-select">
+        <StateSelect
+          :states="getStates()"
+          @state-select="selectState"
+          :selectedState="selectedState"
+        />
+        <strong class="blue">{{ taxPercentage }}%</strong>
+      </div>
+      <HeaderToggle
+        @toggle-menu="toggleMenu"
+        @new-item="addItem"
+        @clear-items="clearItems"
+        :menuOpen="menuOpen"
+        :items="items"
+      />
+      <ItemList :items="items" @remove-item="deleteItem" />
+      <router-link to="/about">ABOUT</router-link>
+    </div>
     <Transition name="fade">
       <TotalPrice
         :totalPrice="totalPrice"
@@ -39,9 +43,62 @@ export default {
       menuOpen: false,
       totalAmmount: 0,
       items: [],
-      states: [],
       taxAmount: 0.07,
       selectedState: "IN",
+      stateTaxes: {
+        AL: "0.04",
+        AK: "0.05",
+        AZ: "0.056",
+        AR: "0.065",
+        CA: "0.0725",
+        CO: "0.029",
+        CT: "0.0635",
+        DE: "0.00",
+        DC: "0.06",
+        FL: "0.06",
+        GA: "0.04",
+        HI: "0.04",
+        ID: "0.06",
+        IL: "0.0625",
+        IN: "0.07",
+        IA: "0.06",
+        KS: "0.065",
+        KY: "0.06",
+        LA: "0.0445",
+        ME: "0.055",
+        MD: "0.06",
+        MA: "0.0625",
+        MI: "0.06",
+        MN: "0.06875",
+        MS: "0.07",
+        MO: "0.04225",
+        MT: "0.00",
+        NE: "0.0550",
+        NV: "0.0685",
+        NH: "0.00",
+        NJ: "0.06625",
+        NM: "0.05",
+        NY: "0.04",
+        NC: "0.04750",
+        ND: "0.05",
+        OH: "0.0575",
+        OK: "0.045",
+        OR: "0.00",
+        PA: "0.06",
+        PR: "0.115",
+        RI: "0.07",
+        SC: "0.06",
+        SD: "0.045",
+        TN: "0.07",
+        TX: "0.0625",
+        UT: "0.0485",
+        VT: "0.06",
+        VA: "0.043",
+        WA: "0.065",
+        WV: "0.06",
+        WI: "0.05",
+        WY: "0.04",
+      },
     };
   },
   methods: {
@@ -84,22 +141,19 @@ export default {
       this.selectedState = state;
       this.setTax();
     },
-    async setTax() {
-      const tax = await this.getTaxByState(this.selectedState);
+    setTax() {
+      const tax = this.getTaxByState(this.selectedState);
       localStorage.setItem("selectedState", this.selectedState);
       localStorage.setItem("tax", tax);
       this.taxAmount = tax;
     },
-    async getStates() {
-      const res = await fetch("./state_taxes.json");
-      const data = await res.json();
-      return Object.keys(data);
+    getStates() {
+      return Object.keys(this.stateTaxes);
     },
-    async getTaxByState(state) {
-      const res = await fetch("./state_taxes.json");
-      const taxes = await res.json();
-      if (!taxes[state]) throw new Error("Invalid state");
-      return taxes[state];
+    getTaxByState(state) {
+      const stateTax = this.stateTaxes[state];
+      if (!stateTax) throw new Error("Invalid state");
+      return stateTax;
     },
   },
   created() {
@@ -117,11 +171,6 @@ export default {
     localStorage.getItem("tax")
       ? (this.taxAmount = localStorage.getItem("tax"))
       : localStorage.setItem("tax", this.taxAmount);
-
-    // pull states from json file
-    this.getStates().then((states) => {
-      this.states = states;
-    });
   },
   mounted() {
     setTimeout(() => {
@@ -153,11 +202,30 @@ export default {
 };
 </script>
 
-<style scoped>
-#home {
+<style>
+.state-select {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
+  gap: 0.5em;
+}
+
+a {
+  color: rgb(87, 86, 86);
+  text-decoration: none;
+  border-bottom: 2px solid var(--clr-blue);
+  transition: transform 0.3s ease-in-out;
+  letter-spacing: 1px;
+  font-size: 1.1rem;
+}
+
+a:hover {
+  transform: translateY(1.5px);
+  transition: transform 0.2s ease-in-out;
+}
+
+a:active {
+  transform: translateY(-1px);
+  transition: transform 0.2s ease-in-out;
 }
 </style>
