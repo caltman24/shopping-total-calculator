@@ -10,6 +10,9 @@
     </button>
     <transition name="fade">
       <form @submit.prevent="saveItem" class="add-item" v-show="menuOpen">
+        <button type="button" @click.prevent="togglePriceField" class="btn toggle">
+          Toggle Unit Pricing
+        </button>
         <div class="item-name--wrapper">
           <label for="item-name">Name: </label>
           <input
@@ -19,7 +22,10 @@
             v-model="name"
           />
         </div>
-        <div class="item-price--wrapper">
+        <div
+          class="item-price--wrapper fixed"
+          v-if="selectedPriceField === 'fixed'"
+        >
           <label for="item-price">Price: </label>
           <input
             id="item-price"
@@ -29,8 +35,38 @@
             placeholder="0.00"
             v-model.number="price"
             required
-            oninvalid="setCustomValidity('Please enter a price.')"
           />
+        </div>
+        <div
+          class="item-price--wrapper unit"
+          v-else-if="selectedPriceField === 'unit'"
+        >
+          <label for="item-price">Unit Price: </label>
+          <input
+            id="item-price"
+            type="number"
+            min="0.01"
+            step="0.01"
+            placeholder="0.00"
+            v-model.number="unitPrice"
+            required
+          />
+          <label for="item-weight">Weight: </label>
+          <input
+            id="item-weight"
+            type="number"
+            min="0.01"
+            step="0.01"
+            placeholder="0.00"
+            v-model.number="unitWeight"
+            required
+          />
+          <select v-model="unit">
+            <option value="lbs">lbs</option>
+            <option value="oz">oz</option>
+            <option value="g">g</option>
+            <option value="kg">kg</option>
+          </select>
         </div>
 
         <span>
@@ -67,7 +103,11 @@ export default {
     return {
       name: "",
       price: null,
+      unitPrice: null,
+      unitWeight: null,
+      unit: "lbs",
       isFood: true,
+      selectedPriceField: "fixed",
     };
   },
   emits: ["toggle-menu", "new-item", "clear-items"],
@@ -76,20 +116,52 @@ export default {
       this.$emit("toggle-menu");
     },
     saveItem() {
-      if (!this.price) return;
-      const newItem = {
-        id: uuidv4(),
-        name: this.name,
-        price: this.price,
-        isFood: this.isFood,
-      };
+      if (!this.price && this.selectedPriceField === "fixed") return;
+      if (
+        !this.unitPrice &&
+        !this.unitWeight &&
+        this.selectedPriceField === "unit"
+      ) {
+        return;
+      }
+
+      let newItem = {};
+      if (this.selectedPriceField === "unit") {
+        this.price = this.unitPrice * this.unitWeight;
+        newItem = {
+          id: uuidv4(),
+          name: this.name,
+          price: this.price,
+          isFood: this.isFood,
+          unitWeight: this.unitWeight,
+          unit: this.unit,
+        };
+      } else if (this.selectedPriceField === "fixed") {
+        newItem = {
+          id: uuidv4(),
+          name: this.name,
+          price: this.price,
+          isFood: this.isFood,
+        };
+      } else throw new Error("selectedPriceField is invalid");
+
       this.$emit("new-item", newItem);
-      this.name = "";
-      this.price = null;
-      this.isFood = true;
+      this.clearForm();
     },
     clearItems() {
       this.$emit("clear-items");
+    },
+    togglePriceField() {
+      this.selectedPriceField =
+        this.selectedPriceField === "fixed" ? "unit" : "fixed";
+      this.clearForm();
+    },
+    clearForm() {
+      this.name = "";
+      this.price = null;
+      this.unitPrice = null;
+      this.unitWeight = null;
+      this.unit = "lbs";
     },
   },
 };
@@ -118,8 +190,11 @@ input {
 }
 
 div.unit input {
-  width: fit-content;
   margin-right: 1.5em;
+}
+
+#item-weight {
+  width: fit-content;
 }
 
 span {
