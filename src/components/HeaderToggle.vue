@@ -6,7 +6,7 @@
       class="btn large"
       :class="menuOpen ? 'close' : ''"
     >
-      {{ menuOpen ? "Close" : "Add Item" }}
+      {{ menuOpen ? "Close X" : "Add Item +" }}
     </button>
     <transition name="fade">
       <form class="add-item" v-show="menuOpen">

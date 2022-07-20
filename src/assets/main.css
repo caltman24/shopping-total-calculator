@@ -11,7 +11,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   padding-bottom: 1em;
 }
 
@@ -127,7 +126,7 @@ main {
   height: 50px;
   position: absolute;
   display: inline-block;
-  z-index: 9999;
+  z-index: 99;
   width: 100%;
   user-select: none;
   pointer-events: none;
@@ -196,26 +195,28 @@ main {
 }
 
 footer {
-  width: 25em;
-  max-width: 65%;
+  /* width: 25em;
+  max-width: 65%; */
+  width: 100vw;
+  position: fixed;
+  bottom: 0;
+  background-color: #0066ff;
+  color: hsla(0, 0%, 100%, 0.85);
+  box-shadow: 0 -0.4em 0.5em rgba(0, 0, 0, 0.2);
+  z-index: 9999;
+}
+
+@media screen and (min-width: 768px) {
+  footer {
+    width: 45em;
+  }
 }
 
 .total-result {
-  font-size: 1rem;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  text-align: right;
-  gap: 0.5em;
   text-transform: uppercase;
   font-weight: 600;
-  width: fit-content;
-  margin-left: auto;
+  width: 100%;
   border-radius: 7px;
-  padding: 0.65em 0.65em 0.65em 1.45em;
-  background-color: #b0abab36;
-  box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2);
-  margin-top: 1.5vh;
 }
 
 .total-row {
@@ -224,17 +225,32 @@ footer {
   align-items: center;
   justify-content: space-between;
   gap: 2.5em;
-  width: 100%;
   font-size: 1rem;
+  width: 100%;
+}
+
+.total-row div {
+  padding: 0.5em 1em;
 }
 
 .total-result h3 {
   color: rgb(12, 12, 12);
+  color: white;
   font-size: 1.3rem;
 }
 
+.total-result p {
+  font-size: 0.8rem;
+}
+
 .total-dmg {
-  color: red;
+  font-size: 1.1rem;
+  background: red;
+}
+
+.total-dmg p {
+  font-size: 1rem;
+  color: white;
 }
 
 #state-select {
@@ -256,4 +272,18 @@ footer {
 
 strong.blue {
   color: #0066ff;
+}
+
+.slide-enter-active,
+.slide-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.slide-enter-from,
+.slide-leave-to {
+  opacity: 0;
+}
+
+a {
+  margin-top: 0.5em;
 }

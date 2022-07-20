@@ -1,27 +1,29 @@
 <template>
-  <StateSelect
-    :states="states"
-    @state-select="selectState"
-    :selectedState="selectedState"
-    :taxPercentage="taxPercentage"
-  />
-  <HeaderToggle
-    @toggle-menu="toggleMenu"
-    @new-item="addItem"
-    @clear-items="clearItems"
-    :menuOpen="menuOpen"
-    :items="items"
-  />
-  <ItemList :items="items" @remove-item="deleteItem" />
-  <Transition name="fade">
-    <TotalPrice
-      :totalPrice="totalPrice"
-      :totalTax="totalTax"
-      :subtotal="subtotal"
-      v-show="items.length > 0"
+  <div id="home">
+    <StateSelect
+      :states="states"
+      @state-select="selectState"
+      :selectedState="selectedState"
+      :taxPercentage="taxPercentage"
     />
-  </Transition>
-  <router-link to="/about">ABOUT</router-link>
+    <HeaderToggle
+      @toggle-menu="toggleMenu"
+      @new-item="addItem"
+      @clear-items="clearItems"
+      :menuOpen="menuOpen"
+      :items="items"
+    />
+    <ItemList :items="items" @remove-item="deleteItem" />
+    <router-link to="/about">ABOUT</router-link>
+    <Transition name="fade">
+      <TotalPrice
+        :totalPrice="totalPrice"
+        :totalTax="totalTax"
+        :subtotal="subtotal"
+        v-show="items.length > 0"
+      />
+    </Transition>
+  </div>
 </template>
 
 <script>
@@ -150,3 +152,12 @@ export default {
   components: { HeaderToggle, ItemList, TotalPrice, StateSelect },
 };
 </script>
+
+<style scoped>
+#home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+</style>

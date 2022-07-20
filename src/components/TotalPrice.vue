@@ -3,17 +3,17 @@
     <div class="total-result">
       <div class="total-row">
         <div class="total-sub">
-          subtotal:
+          <p>subtotal:</p>
           <h3>${{ subtotal.toFixed(2) }}</h3>
         </div>
         <div class="total-tax">
-          tax:
+          <p>tax:</p>
           <h3>${{ totalTax.toFixed(2) }}</h3>
         </div>
-      </div>
-      <div class="total-dmg">
-        Total Damage:
-        <h3>${{ totalPrice }}</h3>
+        <div class="total-dmg">
+          <p>Total Damage:</p>
+          <h3>${{ totalPrice }}</h3>
+        </div>
       </div>
     </div>
   </footer>
@@ -29,3 +29,5 @@ export default {
   },
 };
 </script>
+
+<style></style>

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="about">
     <header>
       <h2 id="version">Version 1.0.0</h2>
     </header>
@@ -25,8 +25,8 @@
         </p>
       </section>
     </main>
+    <router-link to="/">BACK</router-link>
   </div>
-  <router-link to="/">BACK</router-link>
 </template>
 
 <script>
@@ -36,6 +36,13 @@ export default {
 </script>
 
 <style scoped>
+#about {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+}
+
 header {
   text-align: center;
 }
@@ -54,9 +61,9 @@ main {
   text-transform: uppercase;
   font-size: 2rem;
 }
-.external-link{
-    color: #0070f3;
-    font-style: italic;
+.external-link {
+  color: #0070f3;
+  font-style: italic;
 }
 
 section {
