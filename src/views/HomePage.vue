@@ -210,7 +210,7 @@ export default {
   gap: 0.5em;
 }
 
-a {
+a:not(.external-link) {
   color: rgb(87, 86, 86);
   text-decoration: none;
   border-bottom: 2px solid var(--clr-blue);
