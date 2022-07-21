@@ -41,6 +41,9 @@ export default {
     newItem(item) {
       this.$emit("new-item", item);
     },
+    clearItems() {
+      this.$emit("clear-items");
+    },
   },
   components: { AddItem },
 };
