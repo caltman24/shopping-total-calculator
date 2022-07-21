@@ -44,7 +44,7 @@
           <li>
             <strong>Food</strong> - When adding an item, the item is marked as
             food by default. If you want to mark an item as non-food, uncheck
-            the "food" checkbox. Food does not get taxed at the state level.
+            the "food" checkbox. Some states still tax groceries, however the calculator will not account for tax if the "food" checkbox is checked.
             <ul>
               <li id="food-clr-sample"><strong>Food</strong> - light purple</li>
               <li id="nonfood-clr-sample">

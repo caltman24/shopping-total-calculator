@@ -1,15 +1,21 @@
 <template>
   <form @submit.prevent="saveItem" class="add-item">
-    <div class="price-type-toggle">
-      <p v-if="selectedPriceField === 'fixed'">Fixed Price</p>
-      <p v-else>Price Per Unit</p>
-      <SwitchToggle @toggle-switch="togglePriceField" />
+    <div class="options-container">
+      <div class="price-type-toggle">
+        <p v-if="selectedPriceField === 'fixed'">Fixed Price</p>
+        <p v-else>Price Per Unit</p>
+        <SwitchToggle @toggle-switch="togglePriceField" />
+      </div>
+      <span>
+        <input type="checkbox" name="" id="is-food" v-model="isFood" />
+        <label for="is-food">Food</label>
+      </span>
     </div>
     <div class="item-name--wrapper">
       <label for="item-name">Name: </label>
       <input id="item-name" type="text" placeholder="Bread" v-model="name" />
     </div>
-    <transition name="fade">
+    <transition name="form-fade" mode="out-in">
       <div
         class="item-price--wrapper fixed"
         v-if="selectedPriceField === 'fixed'"
@@ -66,10 +72,6 @@
         </select>
       </div>
     </transition>
-    <span>
-      <input type="checkbox" name="" id="is-food" v-model="isFood" />
-      <label for="is-food">Food</label>
-    </span>
 
     <button type="submit" class="btn">Save Item</button>
   </form>
@@ -170,13 +172,31 @@ input {
   width: 100%;
 }
 
+.item-price--wrapper {
+  width: 100%;
+}
+
 .price-type-toggle {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-block: 0.5em;
   gap: 0.5em;
+}
+
+.price-type-toggle p {
+  text-align: right;
+}
+
+.options-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 4em;
+  margin-top: 0.5em;
+
+  width: 100%;
 }
 
 span {

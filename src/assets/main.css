@@ -116,6 +116,17 @@
   opacity: 0;
 }
 
+.form-fade-enter-active,
+.form-fade-leave-active {
+  transition: all 0.3s ease-in-out;
+}
+
+.form-fade-enter-from,
+.form-fade-leave-to {
+  opacity: 0;
+}
+
+
 main {
   position: relative;
   width: 100%;
