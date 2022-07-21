@@ -61,9 +61,28 @@
   transition: all 0.2s ease;
 }
 
-.btn.close {
-  background-color: #2e2e2e;
+.btn.toggle {
+  background-color: hsl(76, 45%, 45%);
+  max-width: 60%;
+  padding: 0.25em 0.5em;
+  margin: 0 auto;
   color: #fff;
+  transition: all 0.2s ease;
+}
+
+.btn.toggle:hover {
+  background-color: hsl(76, 45%, 40%);
+  transition: all 0.2s ease;
+}
+
+.btn.close {
+  background-color: hsl(0, 0%, 18%);
+  color: #fff;
+}
+
+.btn.close:hover {
+  background-color: hsl(0, 0%, 23%);
+  transition: all 0.2s ease;
 }
 
 .btn.large.clear {
@@ -215,6 +234,7 @@ footer {
   color: hsla(0, 0%, 100%, 0.85);
   box-shadow: 0 -0.4em 0.5em rgba(0, 0, 0, 0.2);
   z-index: 9999;
+  user-select: none;
 }
 
 .total-result {

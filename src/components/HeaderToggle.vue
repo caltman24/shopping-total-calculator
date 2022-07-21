@@ -9,37 +9,7 @@
       {{ menuOpen ? "Close X" : "Add Item +" }}
     </button>
     <transition name="fade">
-      <form @submit.prevent="saveItem" class="add-item" v-show="menuOpen">
-        <div class="item-name--wrapper">
-          <label for="item-name">Name: </label>
-          <input
-            id="item-name"
-            type="text"
-            placeholder="Bread"
-            v-model="name"
-          />
-        </div>
-        <div class="item-price--wrapper">
-          <label for="item-price">Price: </label>
-          <input
-            id="item-price"
-            type="number"
-            min="0.01"
-            step="0.01"
-            placeholder="0.00"
-            v-model.number="price"
-            required
-            oninvalid="setCustomValidity('Please enter a price.')"
-          />
-        </div>
-
-        <span>
-          <input type="checkbox" name="" id="is-food" v-model="isFood" />
-          <label for="is-food">Food</label>
-        </span>
-
-        <button type="submit" class="btn">Save Item</button>
-      </form>
+      <AddItem v-show="menuOpen" @new-item="newItem" />
     </transition>
     <transition name="fade">
       <button
@@ -55,7 +25,7 @@
 </template>
 
 <script>
-import { v4 as uuidv4 } from "uuid";
+import AddItem from "./AddItem.vue";
 
 export default {
   name: "HeaderToggle",
@@ -63,35 +33,16 @@ export default {
     menuOpen: Boolean,
     items: Array,
   },
-  data() {
-    return {
-      name: "",
-      price: null,
-      isFood: true,
-    };
-  },
   emits: ["toggle-menu", "new-item", "clear-items"],
   methods: {
     toggleMenu() {
       this.$emit("toggle-menu");
     },
-    saveItem() {
-      if (!this.price) return;
-      const newItem = {
-        id: uuidv4(),
-        name: this.name,
-        price: this.price,
-        isFood: this.isFood,
-      };
-      this.$emit("new-item", newItem);
-      this.name = "";
-      this.price = null;
-      this.isFood = true;
-    },
-    clearItems() {
-      this.$emit("clear-items");
+    newItem(item) {
+      this.$emit("new-item", item);
     },
   },
+  components: { AddItem },
 };
 </script>
 
@@ -100,47 +51,5 @@ header {
   display: flex;
   flex-direction: column;
   width: 100%;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-input {
-  padding: 0.5em;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  margin-block: 0.25em;
-  font-size: 1rem;
-  width: 100%;
-}
-
-div.unit input {
-  width: fit-content;
-  margin-right: 1.5em;
-}
-
-span {
-  display: flex;
-  align-items: center;
-}
-
-select {
-  padding: 0.25em;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 1rem;
-}
-
-#is-food {
-  width: 20px;
-  height: 20px;
-  margin-right: 1em;
-}
-
-label {
-  font-size: 1.1rem;
 }
 </style>
