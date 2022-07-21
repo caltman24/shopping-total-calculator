@@ -1,11 +1,14 @@
 <template>
   <div class="item-row">
     <div class="item-desc" :class="item.isFood ? 'food' : ''">
-      <p class="item-desc-name">{{ item.name || "" }} {{ unitWeight }}</p>
-      <h4 class="item-desc-price">
-        + ${{ item.price.toFixed(2) }} <span>{{ pricePerWeight }}</span>
-      </h4>
+      <p class="item-desc-name">
+        {{ item.name || "" }}
+        {{ unitWeight }}
+        {{ unitPrice }}
+      </p>
+      <h4 class="item-desc-price">+ ${{ item.price.toFixed(2) }}</h4>
     </div>
+    <p v-show="item.quantity > 1">{{quantity}}</p>
     <h4 class="item-acc">${{ accumPrice.toFixed(2) }}</h4>
   </div>
 </template>
@@ -23,12 +26,15 @@ export default {
         ? `~ ${this.item.unitWeight} ${this.item.unit}`
         : "";
     },
-    pricePerWeight() {
-      return this.item.unitWeight
-        ? `~ $${(this.item.price / this.item.unitWeight).toFixed(2)}/${
-            this.item.unit
-          }`
+    unitPrice() {
+      return this.item.unitPrice
+        ? `@  $${this.item.unitPrice}/${this.item.unit}`
         : "";
+    },
+    quantity() {
+      return this.item.quantity
+      ? `x ${this.item.quantity} @ $${(this.item.price / this.item.quantity).toFixed(2)}`
+      : "";
     },
   },
 };

@@ -234,6 +234,7 @@ footer {
   color: hsla(0, 0%, 100%, 0.85);
   box-shadow: 0 -0.4em 0.5em rgba(0, 0, 0, 0.2);
   z-index: 9999;
+  user-select: none;
 }
 
 .total-result {
