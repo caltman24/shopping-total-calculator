@@ -3,6 +3,16 @@
     <header>
       <h1 id="title">Shopping total calculator</h1>
       <h2 id="version">Version 1.0.0</h2>
+      <span
+        >See the code:
+        <span class="gh-btn"
+          ><a
+            href="https://github.com/caltman24/shopping-total-calculator"
+            target="_blank"
+            >Github</a
+          ></span
+        ></span
+      >
     </header>
     <main>
       <section class="sales-tax-info">
@@ -44,7 +54,9 @@
           <li>
             <strong>Food</strong> - When adding an item, the item is marked as
             food by default. If you want to mark an item as non-food, uncheck
-            the "food" checkbox. Some states still tax groceries, however the calculator will not account for tax if the "food" checkbox is checked.
+            the "food" checkbox. Some states still tax groceries, however the
+            calculator will not account for tax if the "food" checkbox is
+            checked.
             <ul>
               <li id="food-clr-sample"><strong>Food</strong> - light purple</li>
               <li id="nonfood-clr-sample">
@@ -88,6 +100,32 @@ main {
   flex-direction: column;
   gap: 2em;
   align-items: center;
+}
+
+.gh-btn {
+  width: fit-content;
+  height: fit-content;
+  padding: 0.25em 1em;
+  margin-left: 0.5em;
+  background-color: #0070f3;
+  color: white;
+  display: inline-block;
+  font-weight: bold;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s linear;
+}
+
+.gh-btn a {
+  color: white;
+  text-decoration: none;
+  border: none;
+}
+
+.gh-btn:hover {
+  transform: translateY(1px);
+  transition: all 0.2s linear;
+  opacity: 0.8;
 }
 
 .section-title {
